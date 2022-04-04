@@ -1,6 +1,12 @@
 <template>
   <div class="container">
     <h1 class="mt-3">Posts</h1>
+    <Pagination
+      v-if="!isLoading"
+      :current-page="currentPage"
+      :last-page="lastPage"
+      @on-page-change="getPosts"
+    />
     <Loader v-if="isLoading" />
     <div class="posts" v-else>
       <div class="row" v-if="posts.length">
@@ -14,26 +20,32 @@
 <script>
 import PostCard from "./PostCard.vue";
 import Loader from "../Loader.vue";
+import Pagination from "../Pagination.vue";
 
 export default {
   name: "PostsList",
   components: {
     PostCard,
     Loader,
+    Pagination,
   },
   data() {
     return {
       posts: [],
       isLoading: false,
+      currentPage: 1,
+      lastPage: undefined,
     };
   },
   methods: {
-    getPosts() {
+    getPosts(page = 1) {
       this.isLoading = true;
       axios
-        .get("http://localhost:8000/api/posts")
+        .get("http://localhost:8000/api/posts?page=" + page)
         .then((res) => {
-          this.posts = res.data;
+          this.posts = res.data.data;
+          this.currentPage = res.data.current_page;
+          this.lastPage = res.data.last_page;
         })
         .catch((err) => {
           console.error(err);

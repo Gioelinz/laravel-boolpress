@@ -35,7 +35,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 @auth
-                    <a class="navbar-brand" href="{{ url('/admin') }}">
+                    <a class="navbar-brand" href="{{ url('/') }}">
                     @else
                         <a class="navbar-brand" href="{{ url('/') }}">
                         @endauth
@@ -80,7 +80,7 @@
                                         </a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                    document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 

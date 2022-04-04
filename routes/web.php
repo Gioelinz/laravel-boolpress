@@ -30,6 +30,6 @@ Route::get('/', function () {
     return view('guests.home');
 });
 
-Route::get('{any?}', function () {
+/* Route::get('{any?}', function () {
     return view('guests.home');
-})->where('any', '.*');
+})->where('any', '.*'); */

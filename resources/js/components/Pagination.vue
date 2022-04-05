@@ -15,7 +15,7 @@
         role="button"
         v-for="page in lastPage"
         :key="page"
-        @click="$emit('on-page-change', page)"
+        @click="currentPage == page ? '' : $emit('on-page-change', page)"
       >
         <span class="page-link">{{ page }}</span>
       </li>

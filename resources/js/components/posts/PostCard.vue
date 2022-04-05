@@ -2,11 +2,21 @@
   <div class="col-12">
     <div class="card border-info my-3">
       <div class="card-body text-info">
-        <h5 class="card-title text-success">
-          {{ post.title }}
-          <span :class="`badge badge-pill badge-${post.category.color}`"
-            >{{ post.category.label }}
-          </span>
+        <h5 class="card-title text-success d-flex justify-content-between">
+          <div>
+            {{ post.title }}
+            <span :class="`badge badge-pill badge-${post.category.color}`"
+              >{{ post.category.label }}
+            </span>
+          </div>
+          <div>
+            <router-link
+              v-if="!$route.params.slug"
+              class="btn btn-sm btn-danger"
+              :to="{ name: 'post-detail', params: { slug: post.slug } }"
+              >Vedi</router-link
+            >
+          </div>
         </h5>
         <p class="card-text">
           {{ post.description }}

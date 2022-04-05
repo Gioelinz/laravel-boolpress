@@ -1,7 +1,7 @@
 <template>
   <div class="loader">
     <div class="d-flex align-items-center">
-      <strong class="text-danger mx-3 h3">Posts Loading</strong>
+      <strong class="text-danger mx-3 h3">{{ message || "" }} Loading</strong>
       <div
         class="spinner-border text-danger h4 ms-auto"
         role="status"
@@ -14,6 +14,7 @@
 <script>
 export default {
   name: "Loader",
+  props: ["message"],
 };
 </script>
 

@@ -7,7 +7,7 @@
       :last-page="lastPage"
       @on-page-change="getPosts"
     />
-    <Loader v-if="isLoading" />
+    <Loader v-if="isLoading" message="Posts" />
     <div class="posts" v-else>
       <div class="row" v-if="posts.length">
         <PostCard v-for="post in posts" :key="post.id" :post="post" />

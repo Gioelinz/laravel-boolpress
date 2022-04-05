@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 //importo i componenti
 import Home from './components/pages/Home.vue'
 import About from './components/pages/About.vue'
+import PostDetail from './components/pages/PostDetail.vue'
 
 
 
@@ -15,6 +16,7 @@ const router = new VueRouter({
     routes: [
         { path: '/', component: Home },
         { path: '/about', component: About },
+        { path: '/posts/:slug', component: PostDetail, name: 'post-detail' },
     ],
 })
 

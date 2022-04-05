@@ -26,10 +26,6 @@ Route::middleware('auth')
         Route::resource('/tags', 'TagController');
     });
 
-Route::get('/', function () {
+Route::get('{any?}', function () {
     return view('guests.home');
-});
-
-/* Route::get('{any?}', function () {
-    return view('guests.home');
-})->where('any', '.*'); */
+})->where('any', '.*');

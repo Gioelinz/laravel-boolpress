@@ -2,7 +2,7 @@
   <div>
     <Header />
     <main>
-      <PostsList />
+      <router-view> </router-view>
     </main>
   </div>
 </template>

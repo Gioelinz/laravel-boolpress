@@ -10,7 +10,12 @@
     <Loader v-if="isLoading" message="Posts" />
     <div class="posts" v-else>
       <div class="row" v-if="posts.length">
-        <PostCard v-for="post in posts" :key="post.id" :post="post" />
+        <PostCard
+          v-for="post in posts"
+          :key="post.id"
+          :post="post"
+          visible-link="true"
+        />
       </div>
       <h4 v-else>Non ci sono posts</h4>
     </div>

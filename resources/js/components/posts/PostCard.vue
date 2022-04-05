@@ -11,7 +11,7 @@
           </div>
           <div>
             <router-link
-              v-if="!$route.params.slug"
+              v-if="visibleLink"
               class="btn btn-sm btn-danger"
               :to="{ name: 'post-detail', params: { slug: post.slug } }"
               >Vedi</router-link
@@ -43,7 +43,7 @@
 <script>
 export default {
   name: "PostCard",
-  props: ["post"],
+  props: ["post", "visible-link"],
   computed: {
     getFormattedDate() {
       const date = new Date(this.post.updated_at);

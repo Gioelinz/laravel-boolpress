@@ -2247,7 +2247,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PostCard",
-  props: ["post"],
+  props: ["post", "visible-link"],
   computed: {
     getFormattedDate: function getFormattedDate() {
       var date = new Date(this.post.updated_at);
@@ -2275,6 +2275,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PostCard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PostCard.vue */ "./resources/js/components/posts/PostCard.vue");
 /* harmony import */ var _Loader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue");
 /* harmony import */ var _Pagination_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Pagination.vue */ "./resources/js/components/Pagination.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38978,7 +38983,7 @@ var render = function () {
             _c(
               "div",
               [
-                !_vm.$route.params.slug
+                _vm.visibleLink
                   ? _c(
                       "router-link",
                       {
@@ -39076,7 +39081,7 @@ var render = function () {
                   _vm._l(_vm.posts, function (post) {
                     return _c("PostCard", {
                       key: post.id,
-                      attrs: { post: post },
+                      attrs: { post: post, "visible-link": "true" },
                     })
                   }),
                   1

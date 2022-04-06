@@ -1,5 +1,5 @@
 <template>
-  <div class="alert alert-danger" role="alert">
+  <div :class="`alert alert-${type || 'danger'}`" role="alert">
     <slot></slot>
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
 export default {
   name: "Alert",
-  props: ["message"],
+  props: ["type"],
 };
 </script>
 

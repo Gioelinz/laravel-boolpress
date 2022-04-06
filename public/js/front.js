@@ -1916,7 +1916,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Alert",
-  props: ["message"]
+  props: ["type"]
 });
 
 /***/ }),
@@ -2083,6 +2083,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Loader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue");
+/* harmony import */ var _Alert_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Alert.vue */ "./resources/js/components/Alert.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -2096,8 +2100,95 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "About"
+  name: "Contact",
+  components: {
+    Loader: _Loader_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Alert: _Alert_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      form: {
+        email: "",
+        message: ""
+      },
+      successAlert: null,
+      isLoading: false,
+      errors: {}
+    };
+  },
+  computed: {
+    hasErrors: function hasErrors() {
+      return !Object(lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"])(this.errors);
+    }
+  },
+  methods: {
+    validateForm: function validateForm() {
+      var errors = {};
+      if (!this.form.email) errors.email = "La Mail è obbligatoria";
+      if (!this.form.message) errors.message = "Il testo del messaggio è obbligatorio";
+      if (this.form.email && !this.form.email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) errors.email = "La mail non è valida";
+      this.errors = errors;
+    },
+    sendForm: function sendForm() {
+      var _this = this;
+
+      this.validateForm();
+
+      if (!this.hasErrors) {
+        this.isLoading = true;
+        axios.post("http://localhost:8000/api/sendmail", this.form).then(function (res) {
+          _this.form.email = "";
+          _this.form.message = "";
+          _this.successAlert = "Messaggio inviato con successo";
+        })["catch"](function (err) {
+          console.error(err);
+        }).then(function () {
+          _this.isLoading = false;
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -38598,7 +38689,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+    {
+      class: "alert alert-" + (_vm.type || "danger"),
+      attrs: { role: "alert" },
+    },
     [_vm._t("default")],
     2
   )
@@ -38866,26 +38960,147 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { attrs: { id: "about" } }, [
-      _c("div", { staticClass: "text-center mt-5" }, [
-        _c("h2", [_vm._v("About Us")]),
+  return _c("section", { attrs: { id: "about" } }, [
+    _c(
+      "div",
+      { staticClass: "text-center mt-5 container" },
+      [
+        _c("h2", [_vm._v("Contact Us")]),
         _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\n      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non neque\n      corrupti animi molestiae quas inventore mollitia porro adipisci veniam\n      ex sed, eveniet nostrum itaque quibusdam iure consequuntur vel nemo qui.\n    "
-          ),
-        ]),
-      ]),
-    ])
-  },
-]
+        _vm.isLoading
+          ? _c("Loader")
+          : _c(
+              "div",
+              [
+                _vm.hasErrors || _vm.successAlert
+                  ? _c(
+                      "Alert",
+                      { attrs: { type: _vm.hasErrors ? "danger" : "success" } },
+                      [
+                        _vm.successAlert
+                          ? _c("div", [_vm._v(_vm._s(_vm.successAlert))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.hasErrors
+                          ? _c(
+                              "ul",
+                              _vm._l(_vm.errors, function (error, key) {
+                                return _c("li", { key: key }, [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(error) +
+                                      "\n          "
+                                  ),
+                                ])
+                              }),
+                              0
+                            )
+                          : _vm._e(),
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-container mx-auto" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.form.email,
+                          expression: "form.email",
+                          modifiers: { trim: true },
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "email", type: "email" },
+                      domProps: { value: _vm.form.email },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "email",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function ($event) {
+                          return _vm.$forceUpdate()
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "form-text text-muted" }, [
+                      _vm._v("Inserisci la tua mail"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "message" } }, [
+                      _vm._v("Messaggio"),
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.form.message,
+                          expression: "form.message",
+                          modifiers: { trim: true },
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "message", rows: "8" },
+                      domProps: { value: _vm.form.message },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "message",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function ($event) {
+                          return _vm.$forceUpdate()
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "form-text text-muted" }, [
+                      _vm._v("Inserisci il tuo messaggio"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success px-4",
+                      on: {
+                        click: function ($event) {
+                          return _vm.sendForm()
+                        },
+                      },
+                    },
+                    [_vm._v("\n          INVIA\n        ")]
+                  ),
+                ]),
+              ],
+              1
+            ),
+      ],
+      1
+    ),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

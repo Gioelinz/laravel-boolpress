@@ -7,7 +7,7 @@
 
       <PostCard :post="post" v-if="post" />
 
-      <Alert message="Si è vericato un errore" v-if="hasError" />
+      <Alert v-if="hasError"> Si è vericato un errore </Alert>
     </div>
   </section>
 </template>

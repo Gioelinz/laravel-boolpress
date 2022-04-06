@@ -1,7 +1,7 @@
 <template>
   <section id="about">
     <div class="text-center mt-5">
-      <h2>About Us</h2>
+      <h2>Contact Us</h2>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non neque
         corrupti animi molestiae quas inventore mollitia porro adipisci veniam

@@ -1,6 +1,6 @@
 <template>
   <div class="alert alert-danger" role="alert">
-    {{ message }}
+    <slot></slot>
   </div>
 </template>
 

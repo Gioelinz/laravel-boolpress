@@ -124,7 +124,6 @@ export default {
           this.email.loading = false;
           this.email.isInvalid = true;
         } else {
-          this.errors.email = "";
           this.email.loading = false;
           this.email.isValid = true;
         }

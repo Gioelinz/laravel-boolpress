@@ -10,7 +10,7 @@
         >
           <div v-if="successAlert">{{ successAlert }}</div>
           <ul v-if="hasErrors">
-            <li v-for="(error, key) in errors" :key="key">
+            <li class="list-unstyled" v-for="(error, key) in errors" :key="key">
               {{ error }}
             </li>
           </ul>
@@ -25,8 +25,7 @@
               type="email"
               class="form-control"
               :class="{
-                'is-invalid': email.isInvalid,
-                'is-invalid': errors.email,
+                'is-invalid': email.isInvalid || errors.email,
                 'is-loading': email.loading,
                 'is-valid': email.isValid,
               }"
@@ -126,6 +125,7 @@ export default {
           this.email.loading = false;
           this.email.isInvalid = true;
         } else {
+          this.errors.email = null;
           this.email.loading = false;
           this.email.isValid = true;
         }
@@ -133,6 +133,8 @@ export default {
     },
 
     liveValidateMessage() {
+      this.errors = {};
+
       //reset timeout
       clearTimeout(this.message.formTimeout);
 
@@ -146,6 +148,7 @@ export default {
           this.message.isInvalid = true;
           this.message.loading = false;
         } else {
+          this.errors.message = "";
           this.message.loading = false;
           this.message.isValid = true;
         }

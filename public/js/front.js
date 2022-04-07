@@ -2151,7 +2151,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2212,6 +2211,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.email.loading = false;
           _this.email.isInvalid = true;
         } else {
+          _this.errors.email = null;
           _this.email.loading = false;
           _this.email.isValid = true;
         }
@@ -2220,7 +2220,8 @@ __webpack_require__.r(__webpack_exports__);
     liveValidateMessage: function liveValidateMessage() {
       var _this2 = this;
 
-      //reset timeout
+      this.errors = {}; //reset timeout
+
       clearTimeout(this.message.formTimeout);
       this.message.isInvalid = false;
       this.message.isValid = false;
@@ -2231,6 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.message.isInvalid = true;
           _this2.message.loading = false;
         } else {
+          _this2.errors.message = "";
           _this2.message.loading = false;
           _this2.message.isValid = true;
         }
@@ -39082,13 +39084,17 @@ var render = function () {
                           ? _c(
                               "ul",
                               _vm._l(_vm.errors, function (error, key) {
-                                return _c("li", { key: key }, [
-                                  _vm._v(
-                                    "\n            " +
-                                      _vm._s(error) +
-                                      "\n          "
-                                  ),
-                                ])
+                                return _c(
+                                  "li",
+                                  { key: key, staticClass: "list-unstyled" },
+                                  [
+                                    _vm._v(
+                                      "\n            " +
+                                        _vm._s(error) +
+                                        "\n          "
+                                    ),
+                                  ]
+                                )
                               }),
                               0
                             )
@@ -39113,8 +39119,7 @@ var render = function () {
                       ],
                       staticClass: "form-control",
                       class: {
-                        "is-invalid": _vm.email.isInvalid,
-                        "is-invalid": _vm.errors.email,
+                        "is-invalid": _vm.email.isInvalid || _vm.errors.email,
                         "is-loading": _vm.email.loading,
                         "is-valid": _vm.email.isValid,
                       },

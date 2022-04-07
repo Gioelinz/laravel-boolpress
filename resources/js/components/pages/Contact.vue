@@ -26,6 +26,7 @@
               class="form-control"
               :class="{
                 'is-invalid': email.isInvalid,
+                'is-invalid': errors.email,
                 'is-loading': email.loading,
                 'is-valid': email.isValid,
               }"
@@ -40,6 +41,7 @@
               class="form-control"
               :class="{
                 'is-invalid': message.isInvalid,
+                'is-invalid': errors.message,
                 'is-loading': message.loading,
                 'is-valid': message.isValid,
               }"

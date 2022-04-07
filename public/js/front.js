@@ -2150,6 +2150,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -39112,6 +39114,7 @@ var render = function () {
                       staticClass: "form-control",
                       class: {
                         "is-invalid": _vm.email.isInvalid,
+                        "is-invalid": _vm.errors.email,
                         "is-loading": _vm.email.loading,
                         "is-valid": _vm.email.isValid,
                       },
@@ -39166,6 +39169,7 @@ var render = function () {
                       staticClass: "form-control",
                       class: {
                         "is-invalid": _vm.message.isInvalid,
+                        "is-invalid": _vm.errors.message,
                         "is-loading": _vm.message.loading,
                         "is-valid": _vm.message.isValid,
                       },

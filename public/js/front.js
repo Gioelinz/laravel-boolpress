@@ -2137,6 +2137,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2154,7 +2167,20 @@ __webpack_require__.r(__webpack_exports__);
       },
       successAlert: null,
       isLoading: false,
-      errors: {}
+      email: {
+        loading: false,
+        isValid: false,
+        isInvalid: false,
+        formTimeout: ""
+      },
+      message: {
+        loading: false,
+        isValid: false,
+        isInvalid: false,
+        formTimeout: ""
+      },
+      errors: {},
+      match: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     };
   },
   computed: {
@@ -2163,28 +2189,85 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    //metodo per il click fuori dalla text area
+    refreshMessage: function refreshMessage() {
+      this.message.isInvalid = false;
+    },
+    liveValidateMail: function liveValidateMail() {
+      var _this = this;
+
+      //reset timeout
+      clearTimeout(this.email.formTimeout);
+      this.email.isInvalid = false;
+      this.email.isValid = false;
+      this.email.loading = true; //Inizia il timeout
+
+      this.email.formTimeout = setTimeout(function () {
+        if (_this.form.email && !_this.form.email.match(_this.match)) {
+          _this.email.isInvalid = true;
+          _this.email.loading = false;
+        } else if (!_this.form.email) {
+          _this.email.loading = false;
+          _this.email.isInvalid = true;
+        } else {
+          _this.errors.email = "";
+          _this.email.loading = false;
+          _this.email.isValid = true;
+        }
+      }, 1500);
+    },
+    liveValidateMessage: function liveValidateMessage() {
+      var _this2 = this;
+
+      //reset timeout
+      clearTimeout(this.message.formTimeout);
+      this.message.isInvalid = false;
+      this.message.isValid = false;
+      this.message.loading = true; //Inizia il timeout
+
+      this.message.formTimeout = setTimeout(function () {
+        if (!_this2.form.message) {
+          _this2.message.isInvalid = true;
+          _this2.message.loading = false;
+        } else {
+          _this2.message.loading = false;
+          _this2.message.isValid = true;
+        }
+      }, 1500);
+    },
     validateForm: function validateForm() {
+      this.successAlert = "";
       var errors = {};
       if (!this.form.email) errors.email = "La Mail è obbligatoria";
       if (!this.form.message) errors.message = "Il testo del messaggio è obbligatorio";
-      if (this.form.email && !this.form.email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) errors.email = "La mail non è valida";
+
+      if (this.form.email && !this.form.email.match(this.match)) {
+        errors.email = "La mail non è valida";
+      }
+
       this.errors = errors;
     },
     sendForm: function sendForm() {
-      var _this = this;
+      var _this3 = this;
 
+      //Validation
       this.validateForm();
 
       if (!this.hasErrors) {
+        this.email.isValid = false;
+        this.message.isValid = false;
         this.isLoading = true;
         axios.post("http://localhost:8000/api/sendmail", this.form).then(function (res) {
-          _this.form.email = "";
-          _this.form.message = "";
-          _this.successAlert = "Messaggio inviato con successo";
+          _this3.form.email = "";
+          _this3.form.message = "";
+          _this3.successAlert = "Messaggio inviato con successo";
         })["catch"](function (err) {
           console.error(err);
+          _this3.errors = {
+            error: "Si è verificato un errore"
+          };
         }).then(function () {
-          _this.isLoading = false;
+          _this3.isLoading = false;
         });
       }
     }
@@ -38672,6 +38755,19 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/v-click-outside/dist/v-click-outside.umd.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/v-click-outside/dist/v-click-outside.umd.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,n){ true?module.exports=n():undefined}(this,function(){var e="undefined"!=typeof window,n="undefined"!=typeof navigator,t=e&&("ontouchstart"in window||n&&navigator.msMaxTouchPoints>0)?["touchstart"]:["click"];function i(e){var n=e.event,t=e.handler;(0,e.middleware)(n)&&t(n)}function r(e,n){var r=function(e){var n="function"==typeof e;if(!n&&"object"!=typeof e)throw new Error("v-click-outside: Binding value must be a function or an object");return{handler:n?e:e.handler,middleware:e.middleware||function(e){return e},events:e.events||t,isActive:!(!1===e.isActive),detectIframe:!(!1===e.detectIframe)}}(n.value),d=r.handler,o=r.middleware,a=r.detectIframe;if(r.isActive){if(e["__v-click-outside"]=r.events.map(function(n){return{event:n,srcTarget:document.documentElement,handler:function(n){return function(e){var n=e.el,t=e.event,r=e.handler,d=e.middleware,o=t.path||t.composedPath&&t.composedPath();(o?o.indexOf(n)<0:!n.contains(t.target))&&i({event:t,handler:r,middleware:d})}({el:e,event:n,handler:d,middleware:o})}}}),a){var c={event:"blur",srcTarget:window,handler:function(n){return function(e){var n=e.el,t=e.event,r=e.handler,d=e.middleware;setTimeout(function(){var e=document.activeElement;e&&"IFRAME"===e.tagName&&!n.contains(e)&&i({event:t,handler:r,middleware:d})},0)}({el:e,event:n,handler:d,middleware:o})}};e["__v-click-outside"]=[].concat(e["__v-click-outside"],[c])}e["__v-click-outside"].forEach(function(n){var t=n.event,i=n.srcTarget,r=n.handler;return setTimeout(function(){e["__v-click-outside"]&&i.addEventListener(t,r,!1)},0)})}}function d(e){(e["__v-click-outside"]||[]).forEach(function(e){return e.srcTarget.removeEventListener(e.event,e.handler,!1)}),delete e["__v-click-outside"]}var o=e?{bind:r,update:function(e,n){var t=n.value,i=n.oldValue;JSON.stringify(t)!==JSON.stringify(i)&&(d(e),r(e,{value:t}))},unbind:d}:{};return{install:function(e){e.directive("click-outside",o)},directive:o}});
+//# sourceMappingURL=v-click-outside.umd.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401&":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Alert.vue?vue&type=template&id=7b2bf401& ***!
@@ -39015,9 +39111,17 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
+                      class: {
+                        "is-invalid": _vm.email.isInvalid,
+                        "is-loading": _vm.email.loading,
+                        "is-valid": _vm.email.isValid,
+                      },
                       attrs: { id: "email", type: "email" },
                       domProps: { value: _vm.form.email },
                       on: {
+                        keyup: function ($event) {
+                          return _vm.liveValidateMail()
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -39053,11 +39157,25 @@ var render = function () {
                           expression: "form.message",
                           modifiers: { trim: true },
                         },
+                        {
+                          name: "click-outside",
+                          rawName: "v-click-outside",
+                          value: _vm.refreshMessage,
+                          expression: "refreshMessage",
+                        },
                       ],
                       staticClass: "form-control",
+                      class: {
+                        "is-invalid": _vm.message.isInvalid,
+                        "is-loading": _vm.message.loading,
+                        "is-valid": _vm.message.isValid,
+                      },
                       attrs: { id: "message", rows: "8" },
                       domProps: { value: _vm.form.message },
                       on: {
+                        keyup: function ($event) {
+                          return _vm.liveValidateMessage()
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -55582,8 +55700,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routes.js */ "./resources/js/routes.js");
-/* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.umd.js");
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes.js */ "./resources/js/routes.js");
+/* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //importa solo axios
 
 /* window.axios = require('axios');
@@ -55592,12 +55712,14 @@ Vue.prototype.$http = window.axios; */
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
+Vue.use(v_click_outside__WEBPACK_IMPORTED_MODULE_0___default.a);
+
 
 var app = new Vue({
   el: '#root',
-  router: _routes_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+  router: _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"],
   render: function render(h) {
-    return h(_components_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    return h(_components_App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
   }
 });
 

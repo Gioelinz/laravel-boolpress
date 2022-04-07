@@ -6,6 +6,9 @@ require('./bootstrap');
 Vue.prototype.$http = window.axios; */
 
 window.Vue = require('vue');
+import vClickOutside from 'v-click-outside'
+
+Vue.use(vClickOutside)
 
 
 import router from './routes.js'

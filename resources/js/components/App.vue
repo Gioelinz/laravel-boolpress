@@ -2,7 +2,9 @@
   <div>
     <Header />
     <main>
-      <router-view> </router-view>
+      <Transition name="fade">
+        <router-view> </router-view>
+      </Transition>
     </main>
   </div>
 </template>
@@ -18,3 +20,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

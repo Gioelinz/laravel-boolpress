@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="mt-3">Posts</h1>
+    <h1 v-if="!isLoading" class="mt-3">Posts</h1>
     <Pagination
       v-if="!isLoading"
       :current-page="currentPage"
@@ -58,6 +58,7 @@ export default {
         .then(() => {
           console.log("Call finished");
           this.isLoading = false;
+          this.$emit("on-api-load", false);
         });
     },
   },

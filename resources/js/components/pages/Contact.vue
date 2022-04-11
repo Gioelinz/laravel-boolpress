@@ -148,7 +148,7 @@ export default {
           this.message.isInvalid = true;
           this.message.loading = false;
         } else {
-          this.errors.message = "";
+          this.errors.message = null;
           this.message.loading = false;
           this.message.isValid = true;
         }

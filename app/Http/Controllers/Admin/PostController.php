@@ -177,6 +177,7 @@ class PostController extends Controller
     {
         if (count($post->tags)) $post->tags()->detach();
 
+        if ($post->image) Storage::delete($post->image);
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('message', "Il Post $post->title è stato cancellato");
